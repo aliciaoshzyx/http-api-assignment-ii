@@ -11,7 +11,6 @@
       const content = document.querySelector('#content');
       const h1 = document.querySelector('h1');
       const p = document.querySelector('p');
-      console.log(xhr.response);
       //if its JSON
       if(parseResponse){
         console.log('in parse');
@@ -23,7 +22,7 @@
           p.textContent = obj.message;
         if(obj.users){
           h1.textContent = obj.message;
-          p.textContent = obj.users;
+          p.textContent = obj;
         }
       } else {
         console.log('recieved');

@@ -64,19 +64,18 @@ const addUser = (request, response, body) => {
   if (users[body.name]) {
     responseJSON.id = "Updated";
     responseJSON.message = "Updated (no content)";
-    console.log('in update');
     responseCode = 204;
   } else {
     users[body.name] = {};
   }
-
+  console.log(responseCode);
   users[body.name].name = body.name;
   users[body.name].age = body.age;
 
   if (responseCode === 201) {
     responseJSON.id = 'Success';
     responseJSON.message = 'Created Successfully';
-    console.log(responseJSON);
+    console.log('in 201');
     return respondJSON(request, response, responseCode, responseJSON);
   }
   console.log(responseJSON);
