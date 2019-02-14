@@ -52,7 +52,6 @@ const onRequest = (request, response) => {
       if (parsedUrl.pathname === '/addUser') {
         const res = response;
         const body = [];
-        console.log('in case post in server');
         // if the upload stream errors out, just throw a
         // a bad request and send it back
         request.on('error', (err) => {

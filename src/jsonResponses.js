@@ -62,8 +62,9 @@ const addUser = (request, response, body) => {
 
   // check if just update
   if (users[body.name]) {
-    console.log('in same check');
-    responseJSON.message = 'Updated (no content)';
+    responseJSON.id = "Updated";
+    responseJSON.message = "Updated (no content)";
+    console.log('in update');
     responseCode = 204;
   } else {
     users[body.name] = {};
@@ -73,7 +74,9 @@ const addUser = (request, response, body) => {
   users[body.name].age = body.age;
 
   if (responseCode === 201) {
+    responseJSON.id = 'Success';
     responseJSON.message = 'Created Successfully';
+    console.log(responseJSON);
     return respondJSON(request, response, responseCode, responseJSON);
   }
   console.log(responseJSON);

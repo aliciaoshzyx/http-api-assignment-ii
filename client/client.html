@@ -11,15 +11,20 @@
       const content = document.querySelector('#content');
       const h1 = document.querySelector('h1');
       const p = document.querySelector('p');
-
+      console.log(xhr.response);
       //if its JSON
       if(parseResponse){
+        console.log('in parse');
         const obj = JSON.parse(xhr.response);
         console.log(obj);
         if(obj.id)
           h1.textContent = obj.id;
         if(obj.message)
           p.textContent = obj.message;
+        if(obj.users){
+          h1.textContent = obj.message;
+          p.textContent = obj.users;
+        }
       } else {
         console.log('recieved');
       }
@@ -27,16 +32,25 @@
 
     //function to send request
     const requestUpdate = (e, form) => {
+      e.preventDefault();
       //grab url field 
-      const url = form.querySelector('#urlField').value;
+      let url;
+      if(form.querySelector('#urlField')){
+        url = form.querySelector('#urlField').value;}
+      else{
+        url = '/addUser';}
+      
+      let method;
       //grab method selected
       if(form.querySelector('#methodSelect')){
-        const method = form.querySelector('#methodSelect').value;
+        method = form.querySelector('#methodSelect').value;
+        
       }else {
-        const method = 'post';}
+        method = 'post';}
       //create a new AJAX request (asynchronous)
       const xhr = new XMLHttpRequest();
       //setup connect using the selected method and url
+      console.log(url);
       xhr.open(method, url);
       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
       xhr.setRequestHeader('Accept', 'application/json');
@@ -46,17 +60,15 @@
         xhr.onload = () => handleResponse(xhr, true);
       } else if( method == 'post') {
         xhr.onload = () => handleResponse(xhr, true);
-      } else {
+      } else if ( method == 'head'){
         xhr.onload = () => handleResponse(xhr, false);
       }
-      
       const formData = `name=${nameField.value}&age=${ageField.value}`;
 
       //send ajax request
       xhr.send(formData);
-      
       //cancel browser's default action
-      e.preventDefault();
+     
       //return false to prevent page redirection from a form
       return false;
     };
