@@ -22,7 +22,7 @@
           p.textContent = obj.message;
         if(obj.users){
           h1.textContent = obj.message;
-          p.textContent = obj;
+          p.textContent = JSON.stringify(obj.users);
         }
       } else {
         console.log('recieved');
