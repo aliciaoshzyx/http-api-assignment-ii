@@ -11,9 +11,10 @@
       const content = document.querySelector('#content');
       const h1 = document.querySelector('h1');
       const p = document.querySelector('p');
-      //if its JSON
+      h1.textContent = "Success";
+      p.textContent = "";
+      //if its JSON and not a 204
       if(parseResponse && xhr.status != 204){
-        console.log('in parse');
         const obj = JSON.parse(xhr.response);
         console.log(obj);
         if(obj.id)
@@ -38,14 +39,14 @@
       e.preventDefault();
       //grab url field 
       let url;
-      if(form.querySelector('#urlField')){
+      if(form.querySelector('#urlField')){ //if its the form with url field, pull that
         url = form.querySelector('#urlField').value;}
-      else{
+      else{ //otherwise use adduser
         url = '/addUser';}
       
       let method;
       //grab method selected
-      if(form.querySelector('#methodSelect')){
+      if(form.querySelector('#methodSelect')){ //check if get or head
         method = form.querySelector('#methodSelect').value;
         
       }else {
@@ -55,7 +56,7 @@
       //setup connect using the selected method and url
       console.log(url);
       xhr.open(method, url);
-      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); //allow params
       xhr.setRequestHeader('Accept', 'application/json');
       //if get request or head request
       if(method == 'get') {

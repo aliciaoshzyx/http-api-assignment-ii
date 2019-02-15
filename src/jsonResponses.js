@@ -1,7 +1,6 @@
 const users = {};
 
 // function to respond with a json object
-// takes request, response, status code and object to send
 const respondJSON = (request, response, status, object) => {
   // object for our headers
   // Content-Type for json
@@ -16,7 +15,6 @@ const respondJSON = (request, response, status, object) => {
 };
 
 // function to respond without json body
-// takes request, response and status code
 const respondJSONMeta = (request, response, status) => {
   // object for our headers
   // Content-Type for json
@@ -29,8 +27,7 @@ const respondJSONMeta = (request, response, status) => {
   response.end();
 };
 
-// get user object
-// should calculate a 200
+// get users
 const getUsers = (request, response) => {
   // json object to send
   const responseJSON = {
@@ -63,12 +60,11 @@ const addUser = (request, response, body) => {
   // check if just update
   if (users[body.name]) {
     responseJSON.id = 'Updated';
-    responseJSON.message = 'Updated: (no content)';
+    responseJSON.message = 'Updated: (no content)'; // these wont be returned because its a 204, but just for learning sake
     responseCode = 204;
   } else {
     users[body.name] = {};
   }
-  console.log(responseCode);
   users[body.name].name = body.name;
   users[body.name].age = body.age;
 
@@ -77,7 +73,6 @@ const addUser = (request, response, body) => {
     responseJSON.message = 'Created Successfully';
     return respondJSON(request, response, responseCode, responseJSON);
   }
-  console.log(responseJSON);
   return respondJSON(request, response, responseCode, responseJSON);
 };
 
