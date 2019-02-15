@@ -12,7 +12,7 @@
       const h1 = document.querySelector('h1');
       const p = document.querySelector('p');
       //if its JSON
-      if(parseResponse){
+      if(parseResponse && xhr.status != 204){
         console.log('in parse');
         const obj = JSON.parse(xhr.response);
         console.log(obj);
@@ -24,7 +24,11 @@
           h1.textContent = obj.message;
           p.textContent = JSON.stringify(obj.users);
         }
-      } else {
+      } else if (xhr.status == 204){
+        h1.textContent = "Updated";
+        p.textContent = "Updated (no content)";
+
+        }else {
         console.log('recieved');
       }
     };
